@@ -51,11 +51,10 @@ export function Login (props) {
             setValidUser(true);;
     }
 
-    const {from} = props.location.state.from.pathname || {from : {pathname: "/"}}
+    // const {from} = props.location.state.from.pathname || {from : {pathname: "/"}}
 
-    console.log(props.location.state.from.pathname);
     if(authService.isAuthenticated)
-        return <Redirect to={from}/>
+        return <Redirect to="/home"/>
 
     return (
         <div className="centerlayout">
