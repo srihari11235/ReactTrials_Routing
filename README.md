@@ -1,68 +1,29 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple Web-App with just a login page with different methods of Routing in React and Protected Routing set up. 
 
-## Available Scripts
+Authorisation of the user is done with Hard-coded values in the authService.js file. No actual api call is made. 
 
-In the project directory, you can run:
 
-### `npm start`
+There are two main methods available for routing using react-router library in React. [Both the methods are done in login.js and kept commented. ]
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Using <Redirect>
+    Using the <Redirect> component is the recommened method for programmatically routing as it is in aligned with Reacts core concept. That is,
+        a.Composable 
+        b.Declarative   
+        c.user event -> state change -> re-render. 
+    
+    One drawback of this approach is there is always a need to declare a property in the components state and update that property inorder to know when to render the <Redirect>. But which is still in align with react concept.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+2. Adding the new Route to History stack. 
+    History library keeps track of the session history of the React Router. When a component is rendered by React Router, that component is passed three different props: location, match, and history. Utilising the 'history' props helps us to render to a new path. History.push creates a new entry in the history stack, i.e redirects the user to the new route. 
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Routes /home and /contact are protected, i.e the user is not allowed to access these routes unless he/she is authorised. The code for defining protected routes in index.js. While creating a ProtectedRoute component, folloiwing are the requirements. 
+    
+    1. It has the same API as <Route />.
+    2. It renders a <Route /> and passes all the props through to it.
+    3. It checks if the user is authenticated, if they are, it renders the “component” prop. If not, it redirects the user to /login.
 
-### `npm run build`
+Few notes on the code [lines 16-25 in index.js]: 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    With Route, if a path isn’t supplied, then that Route will always match. So in the case above, because we didn’t supply a path prop,the Route will always match which means the render prop will always be called. Then, depending on the auth status of the user, we’ll either render a Redirect or render the component
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
